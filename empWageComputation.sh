@@ -8,6 +8,9 @@ MAX_WORK_HRS=10
 totalEmpHrs=0
 totalWorkingDays=0
 
+#declare dictionary
+declare -A dictDailyWage
+
 function getEmpHours()
 {
 	empCheck=$1
@@ -29,5 +32,6 @@ do
 	totalEmpHrs=$(( $totalEmpHrs+$empHrs ))
 	dailyWageArray[$totalWorkingDays]=$(( $empHrs*$EMP_WAGE_PR_HOUR ))
 	(( totalWorkingDays++ ))
+	dictDailyWage["Day "$totalWorkingDays]=$(( $empHrs*$EMP_WAGE_PR_HOUR ))
 done
 empWagePerMonth=$(( $totalEmpHrs*$EMP_WAGE_PR_HOUR ))
