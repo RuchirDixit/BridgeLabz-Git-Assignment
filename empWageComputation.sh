@@ -27,5 +27,7 @@ do
 	empCheck=$(( RANDOM%3 ))
 	empHrs=$( getEmpHours $empCheck )
 	totalEmpHrs=$(( $totalEmpHrs+$empHrs ))
+	dailyWageArray[$totalWorkingDays]=$(( $empHrs*$EMP_WAGE_PR_HOUR ))
+	(( totalWorkingDays++ ))
 done
 empWagePerMonth=$(( $totalEmpHrs*$EMP_WAGE_PR_HOUR ))
