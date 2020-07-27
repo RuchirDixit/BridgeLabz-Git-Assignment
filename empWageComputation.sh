@@ -8,17 +8,24 @@ MAX_WORK_HRS=10
 totalEmpHrs=0
 totalWorkingDays=0
 
+function getEmpHours()
+{
+	empCheck=$1
+   case $empCheck in
+      $IS_FULL_TIME)
+         empHrs=8;;
+      $IS_PART_TIME)
+         empHrs=4;;
+      *)
+         empHrs=0;;
+   esac
+	echo $empHrs
+}
+
 while [[ $totalWorkingDays -lt $MAX_WORKDAYS && $totalEmpHrs -lt $MAX_WORK_HRS ]]
 do
 	empCheck=$(( RANDOM%3 ))
-	case $empCheck in
-		$IS_FULL_TIME)
-			empHrs=8;;
-		$IS_PART_TIME)
-			empHrs=4;;
-		*)
-			empHrs=0;;
-	esac
+	empHrs=$( getEmpHours $empCheck )
 	totalEmpHrs=$(( $totalEmpHrs+$empHrs ))
 done
 empWagePerMonth=$(( $totalEmpHrs*$EMP_WAGE_PR_HOUR ))
